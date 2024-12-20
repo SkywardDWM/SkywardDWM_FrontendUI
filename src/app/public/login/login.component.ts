@@ -37,6 +37,12 @@ export class LoginComponent implements OnInit {
             this.frmLogin.controls.username.setValue(this.cookieUserName);
             this.frmLogin.controls.password.setValue(this.cookiePassword);
             this.frmLogin.controls.rememberMe.setValue(true);
+
+
+
+
+
+            
         }
     }
 
