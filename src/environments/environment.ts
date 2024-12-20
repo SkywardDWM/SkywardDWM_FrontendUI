@@ -7,7 +7,7 @@ export const environment = {
 
   //API
   production: false,
-   serverPath: 'http://44.223.178.13:8091/',  //local
+   serverPath: 'http://localhost:8091/',  //local
 
   // production: true,
  //  serverPath: 'https://nutemapi.skywardcloud.com/',
