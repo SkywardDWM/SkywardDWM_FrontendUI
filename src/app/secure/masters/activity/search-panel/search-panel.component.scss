@@ -1,0 +1,11 @@
+search-text input {
+    height: 40px; /* Your desired input height */
+    padding-top: 8px; /* Adjust this value to ensure vertical centering */
+    padding-bottom: 8px; /* Same as padding-top */
+    font-size: 14px; /* Make sure font size is appropriate */
+}
+
+search-text input::placeholder {
+    vertical-align: middle;
+    text-align: center; /* Centers the placeholder horizontally */
+}

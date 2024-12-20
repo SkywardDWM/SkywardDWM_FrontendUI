@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+        <div class="border p30 rounded">
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-7 col-sm-9 col-xs-10 d-flex align-items-end">
+                    <h4 class="mb-0"><i class="icon-edit"></i> Add/Edit Nature Of Work</h4>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-xs-2 d-flex justify-content-end">
+                    <a mat-flat-button color="primary" class="app-button back-Green" (click)="cancel()">
+                        View List
+                    </a>
+                </div>
+            </div>
+
+            <form [formGroup]="natureOfWorkForm" (submit)="save()" #form="ngForm" novalidate class="app-form">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Nature Of Work Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Name -->
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput formControlName="Name">
+                                    <mat-error *ngIf="natureOfWorkForm.get('Name').invalid ">
+                                        Name is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" mat-flat-button class="app-button mr-1 back-Green">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="row">
+    <!-- Text Search for TAsk -->
+    <div class="col-lg-11">
+      <search-text [placeHolder]="'Search Task'" 
+                   (textSearchEntered)="updateSearchTerms('searchText', $event)">
+      </search-text>
+    </div>
+  </div>
+  

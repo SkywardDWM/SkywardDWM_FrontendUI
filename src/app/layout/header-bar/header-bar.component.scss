@@ -1,0 +1,171 @@
+
+.custom-toolbar {
+  background-color: rgb(48, 127, 226) !important;  // Angular Material's green (500 shade)
+  color: white;  // Change text color as needed
+}
+
+.fnt-White{
+  color: white !important;
+}
+
+// .img-logo{
+//   height: 90px;
+// }
+
+//   .logo-container {
+//  // background-color: white; /* Ensures the logo has a white background */
+//   padding: 5px;           /* Adds space around the logo */
+//   border-radius: 8px;     /* Adds rounded corners */
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for a cleaner look */
+//   display: inline-block;  /* Ensures the container fits the content */
+// }
+
+// .img-logo {
+// display: inline-block;
+// position: relative;
+// width: 140px; /* Adjust the width as needed */
+// height: 60px; /* Adjust the height as needed */
+// overflow: hidden;
+// border-radius: 8px; /* Adjust the border-radius to control the curve */
+// background-color: #0072C6; /* Set the background color of the logo */
+// }
+
+// .img-logo::before {
+// content: "";
+// position: absolute;
+// top: 0;
+// left: 0;
+// width: 100%;
+// height: 100%;
+// // background-image: url('...'); /* Replace with the path to your logo image */
+// background-size: contain;
+// background-repeat: no-repeat;
+// background-position: center;
+// }
+
+.img-logo {
+  display: inline-block;
+  position: relative;
+  width: 140px; /* Adjust the width as needed */
+  height: 60px; /* Adjust the height as needed */
+  overflow: hidden;
+  border-radius: 12px; /* Keep the border-radius for smooth curves */
+  background-color: #0072C6; /* Primary background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Add subtle shadow */
+ // padding: 2px; /* Remove any padding */
+  //margin: 2px; /* Remove any margin */
+}
+
+.img-logo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* Fill the space with the logo */
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9; /* Slight transparency for modern look */
+}
+
+.img-logo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1)); /* Gradient overlay */
+  mix-blend-mode: overlay; /* Blend gradient with the logo */
+  pointer-events: none; /* Ensure it doesn’t block interactions */
+}
+
+.dwm-board-container {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // text-align: center;
+  // position: absolute;
+  // left: 50%;
+  // transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dwm-board-text {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+// .btn-tab {
+//     color: black !important;
+//     line-height: 12px !important;  
+// }
+
+// .btn-tab.active {
+//     color: #0d47a1 !important;
+// }
+
+// .img-icon {
+//     height: 30px;
+//     width: 30px;
+// }
+
+// .fixed-footer {
+//     bottom: 0;
+//     padding: 10px;
+//     position: fixed;    
+// }
+
+// .app-alert {
+//     position: relative;
+//     top: 7px;
+//     right: 6px;
+//     font-size: 10pt;
+//     height: 16px;
+//     width: 16x;
+//     padding: 1px 5px 1px 3px;
+//     color: white;
+//     background-color: red;
+//     border-radius: 50%;    
+// }
+
+// .menu-border
+// {
+//     border-top: 0.5px solid lightgray;
+// }
+  
+// .menu-selected
+// {
+//     border-top: 1px solid #0d47a1 !important;
+// }
+
+// .icon-style
+// {
+//     vertical-align: top;
+//     padding-top: 5px;
+// }
+
+// .icon-new-style
+// {
+//     vertical-align: top;
+//     padding-top: 10px;
+// }
+
+// .logo-container {
+//   background-color: white; /* Ensures the logo has a white background */
+//   padding: 5px;           /* Adds space around the logo */
+//   border-radius: 8px;     /* Adds rounded corners */
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for a cleaner look */
+//   display: inline-block;  /* Ensures the container fits the content */
+// }
+
+// .img-logo {
+//   height: 40px; /* Adjust the size as needed */
+//   width: auto;  /* Maintains the aspect ratio */
+// }

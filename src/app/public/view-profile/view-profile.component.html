@@ -1,0 +1,140 @@
+<div class="container-fluid mt-5 g-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-11 col-lg-12">
+            <div class="border p-3 rounded">
+                <!-- Header -->
+                <div class="row align-items-center mb-3">
+                    <div class="col-lg-7 col-sm-9 col-10">
+                        <h4 class="mb-0">User Profile Details</h4>
+                    </div>
+                    <div class="col-lg-5 col-sm-3 col-2 text-right">
+                        <button mat-flat-button class="app-button back-Green" (click)="goBack()">
+                            Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Details Form -->
+                <form (ngSubmit)="save()"> <!-- Form to handle the save method -->
+                    <div *ngIf="userData" class="row">
+                        <!-- Personal Information -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Name</mat-label>
+                                <input matInput [value]="name" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Username</mat-label>
+                                <input matInput [value]="userData.userName" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput [value]="userData.email" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Phone Number</mat-label>
+                                <input matInput [value]="userData.phoneNumber" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Role and Permissions -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Roles</mat-label>
+                                <input matInput [value]="roleNames" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- AD ID -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>AD Id</mat-label>
+                                <input matInput [value]="userData.userName" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Group ID -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Group Id</mat-label>
+                                <input matInput [value]="userData.userName" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <mat-form-field class="full-width">
+                                <mat-label>Plant</mat-label>
+                                <mat-select [(ngModel)]="userData.plantId" [ngModelOptions]="{standalone: true}"  [disabled]="true">
+                                    <mat-option *ngFor="let plant of plantData" [value]="plant.id">
+                                        {{ plant.plantName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <mat-form-field class="full-width">
+                                <mat-label>Department</mat-label>
+                                <mat-select [(ngModel)]="userData.departmentId" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                                    <mat-option *ngFor="let department of departmentData" [value]="department.id">
+                                        {{ department.departmentName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Optional: Additional Fields (Commented out, you can uncomment and customize) -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Job Role</mat-label>
+                                <input matInput [value]="userData.jobRole" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Work Area</mat-label>
+                                <input matInput [value]="userData.workArea" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Reporting Manager -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Reporting Manager</mat-label>
+                                <input matInput [value]="userData.reportingManager" [disabled]="true">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Shift Timing Section with Label -->
+                        <div class="col-12 mt-4">
+                            <label class="shift-label">Shift Timing</label>
+                            <mat-radio-group class="full-width" [(ngModel)]="selectedShift" name="shiftTiming">
+                              <mat-radio-button value="General Shift" class="radio-item">General Shift (08:00 AM to 05:00 PM)</mat-radio-button>
+                              <mat-radio-button value="First Shift" class="radio-item">1st Shift (06:00 AM to 02:15 PM)</mat-radio-button>
+                              <mat-radio-button value="Second Shift" class="radio-item">2nd Shift (02:00 PM to 10:15 PM)</mat-radio-button>
+                              <mat-radio-button value="Third Shift" class="radio-item">3rd Shift (10:00 PM to 06:15 AM)</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" mat-flat-button class="app-button mr-1 back-Green">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

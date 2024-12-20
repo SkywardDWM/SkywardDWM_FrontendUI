@@ -1,0 +1,47 @@
+/* General Table Styling */
+::ng-deep .ngx-datatable .datatable-header-cell {
+  background-color: #307fe2 !important;
+  color: white !important;
+  text-align: center;
+  font-weight: bold;
+}
+
+::ng-deep .ngx-datatable.material .datatable-body-row:hover {
+  background-color: #f4f8fb;
+}
+
+.attachment-container {
+  display: flex;
+  align-items: center;
+}
+
+.attachment-link {
+  text-decoration: none;
+  color: #307fe2;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.attachment-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+.file-icon {
+  font-size: 18px;
+  color: #555;
+}
+.frequency-section,
+.activity-section {
+  margin-right: 30px; /* Adjust the value as needed */
+}
+
+// .small-text {
+//   font-size: 0.85rem;
+// }
+
+// .small {
+//   font-size: 0.9rem;
+// }

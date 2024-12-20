@@ -1,0 +1,44 @@
+.app-container {
+    padding: 0;
+}
+
+.custom-toolbar {
+    background-color: rgb(48, 127, 226) !important;  // Angular Material's green (500 shade)
+    color: white;  // Change text color as needed
+  }
+  .img-logo {
+    display: inline-block;
+    position: relative;
+    width: 140px; /* Adjust the width as needed */
+    height: 60px; /* Adjust the height as needed */
+    overflow: hidden;
+    border-radius: 8px; /* Adjust the border-radius to control the curve */
+    background-color: #0072C6; /* Set the background color of the logo */
+    }
+    
+    .img-logo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // background-image: url('...'); /* Replace with the path to your logo image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    }
+
+  // .logo-container {
+  //   background-color: white; /* Ensures the logo has a white background */
+  //   padding: 5px;           /* Adds space around the logo */
+  //   border-radius: 8px;     /* Adds rounded corners */
+  //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for a cleaner look */
+  //   display: inline-block;  /* Ensures the container fits the content */
+  // }
+  
+  // .img-logo {
+  //   height: 40px; /* Adjust the size as needed */
+  //   width: auto;  /* Maintains the aspect ratio */
+  // }
+  

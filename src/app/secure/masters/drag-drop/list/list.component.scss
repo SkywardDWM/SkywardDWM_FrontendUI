@@ -1,0 +1,308 @@
+/* Overall board container */
+.board {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping of columns on smaller screens */
+  gap: 20px;
+  justify-content: center; /* Center align columns on smaller screens */
+}
+
+/* Column container */
+.column {
+  flex: 1;
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 250px; /* Set minimum width to ensure proper wrapping */
+  max-width: 100%; /* Ensure columns don't exceed the container */
+  height: 79vh;
+  overflow: hidden; /* Prevent extra scrollbars */
+  position: relative;
+}
+
+/* Header for each column */
+.column h5 {
+  text-align: center;
+  background-color: #D7D5D5; // #f4f4f4;
+  color: black;
+  padding: 2px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border-bottom: solid 2px black;
+
+}
+
+/* Task container */
+.task-container {
+  min-height: 150px;
+  background-color: #f4f4f4; //white
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 90%;
+  overflow-y: auto; /* Add vertical scrolling only */
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Task card */
+.task {
+  background: white ; // #E9F9FA;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 7px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0px 2px 5px #BAB6B6, 
+              0px 2px 3px #BAB6B6;
+  max-width: 100%; /* Prevent horizontal overflow */
+  overflow: hidden; /* Avoid overflow content */
+  padding: 8px;
+  box-sizing: border-box; 
+  min-height: 90px;
+}
+
+
+
+.task:active {
+  cursor: grabbing;
+  background-color: #e8f0fe;
+}
+
+/* Task header */
+.task-header {
+  font-weight: bold;
+  font-size: 16px;
+  background-color: white; // #1CC9CF;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 5px;
+  height: 30px;
+}
+
+/* Progress section */
+.progress-section {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Status indicators (dots) */
+.status-indicators {
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+/* Task buttons container */
+.task-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.indicator-circle, .indicator-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.indicator-circle {
+  border-radius: 50%;
+  background-color: #9F9CEA;
+}
+
+.indicator-square {
+  border-radius: 5px;
+}
+
+::ng-deep .mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: red !important;
+  --mdc-linear-progress-track-color: rgba(63, 81, 181, 0.25);
+}
+
+/* Task adjustments for smaller screens */
+@media (max-width: 768px) {
+  .task {
+    flex-direction: column;
+    padding: 8px;
+  }
+
+  .task-header {
+    font-size: 14px; /* Adjust header size */
+    padding: 4px;
+  }
+
+  .progress-section {
+    margin: 5px 0;
+  }
+
+  .status-indicators {
+    justify-content: flex-start;
+    gap: 3px; /* Reduce gap between dots */
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .indicator-circle, .indicator-square {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task {
+    padding: 6px;
+  }
+
+  .task-header {
+    font-size: 12px; /* Further reduce font size */
+    padding: 3px;
+  }
+
+  .status-indicators {
+    gap: 2px; /* Minimize gap between dots */
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .indicator-circle, .indicator-square {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+/* Task container responsiveness */
+@media (max-width: 768px) {
+  .task-container {
+    padding: 8px;
+    gap: 8px;
+  }
+}
+
+/* Column responsiveness */
+@media (max-width: 768px) {
+  .column {
+    min-width: 100%;
+    padding: 8px;
+  }
+}
+
+.task-container {
+  margin-bottom: 15px;
+}
+
+.dialog-box {
+  margin-top: 3px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+ // width: 300px;
+ min-height: 235px;
+}
+
+
+
+
+.field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  margin-bottom: 5px;
+}
+
+.field  label {
+  font-weight: bold;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.attachments label {
+  font-weight: bold;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.field input {
+  width: 150px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  height: 25px;
+  font-size: 12px;
+}
+
+.field span {
+  font-size: 12px;
+  color: #333;
+  padding-left: 3px;
+}
+
+.field textarea input {
+  font-size: 14px !important;
+  color: #333;
+  //padding-left: 3px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ // margin-top: 5px;
+}
+
+.more-button {
+  background-color: #d9d9d9;
+  color: #000;
+  font-size: 12px;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 25px;
+}
+
+.attachments {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.attachments mat-icon {
+  color: #888;
+  cursor: pointer;
+
+}
+
+mat-icon-button {
+  font-size: 16px;
+}
+

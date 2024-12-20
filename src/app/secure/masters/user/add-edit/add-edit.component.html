@@ -1,0 +1,228 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+        <div class="border p30 rounded">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-sm-9 col-10 d-flex align-items-end leftSideHeader">
+                    <h4 class="mb20 float-left">User Details</h4>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-2 d-flex justify-content-end rightSideHeader mb10 align-items-center">
+                    <!-- View List Button -->
+                    <div class="me-2">
+                        <a *ngIf="IsViewPermission" mat-flat-button class="app-button back-Green" (click)="cancel()">
+                            View List
+                        </a>
+                    </div>
+                    <!-- Upload File Button -->
+                    <div class="file-upload-wrapper" *ngIf="!isEditMode">
+                        <label for="fileInput" class="file-upload-label btn btn-primary">Upload File</label>
+                        <input id="fileInput" type="file" (change)="onFileChange($event)" class="file-input" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <form #form="ngForm" novalidate class="app-form" [formGroup]="frmUser" (submit)="save()">
+                    <div class="row">
+                        <!-- Name -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Full name</mat-label>
+                                <input type="text" matInput formControlName="name" textlower>
+                                <mat-validation-message [control]="frmUser.controls.name" [message]="'Name'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="w-100">
+                                <mat-label>Username</mat-label>
+                                <input type="text" matInput formControlName="userName" autocomplete="off" name="username-field"
+                                    (keydown)="keyDownHandler($event)" space-restrict>
+                                <mat-validation-message [control]="frmUser.controls.userName" [message]="'Username'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Email</mat-label>
+                                <input type="text" matInput formControlName="email" textlower
+                                    (keydown)="keyDownHandler($event)">
+                                <mat-validation-message [control]="frmUser.controls.email" [message]="'Email'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Phone Number</mat-label>
+                                <input type="text" matInput formControlName="phoneNumber" autocomplete="nope"
+                                    maxlength="10" minlength="10" pattern="^[0-9]*$">
+                                <div *ngIf="frmUser.controls.phoneNumber.errors" class="custom-validation">
+                                    <div *ngIf="frmUser.controls.phoneNumber.errors.minlength">
+                                        Minimum 10 Characters Required
+                                    </div>
+                                    <div *ngIf="frmUser.controls.phoneNumber.errors.maxlength">
+                                        Maximum 10 Characters Allowed
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Password</mat-label>
+                                <input [type]="hidePassword || isEditMode ? 'password' : 'text'" matInput 
+                                    formControlName="password" autocomplete="new-password" name="password-field"
+                                    (keydown)="keyDownHandler($event)">
+                                <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-validation-message [control]="frmUser.controls.password" [message]="'Password'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Confirm Password</mat-label>
+                                <input [type]="hideConfirmPassword || isEditMode ? 'password' : 'text'" matInput
+                                    formControlName="confirmPassword" autocomplete="new-password"
+                                    name="confirm-password-field"
+                                    (keydown)="keyDownHandler($event)">
+                                <button type="button" mat-icon-button matSuffix
+                                    (click)="hideConfirmPassword = !hideConfirmPassword"
+                                    [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideConfirmPassword">
+                                    <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-validation-message [control]="frmUser.controls.confirmPassword"
+                                    [message]="'Confirm Password'" [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- Role -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Role</mat-label>
+                                <mat-select formControlName="role">
+                                    <mat-option *ngFor="let role of roleData" [value]="role.name">
+                                        {{ role.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-validation-message [control]="frmUser.controls.role" [message]="'Role'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>AD ID</mat-label>
+                                <input type="text" matInput formControlName="adId" textlower>
+                                <mat-validation-message [control]="frmUser.controls.adId" [message]="'ADId'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Group ID</mat-label>
+                                <input type="text" matInput formControlName="groupID" textlower>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Plant</mat-label>
+                                <mat-select formControlName="plantId">
+                                    <mat-option *ngFor="let plant of PlantData" [value]="plant.id">
+                                        {{ plant.plantName }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-validation-message [control]="frmUser.controls.plantId" [message]="'Plant'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Department</mat-label>
+                                <mat-select formControlName="departmentId">
+                                    <mat-option *ngFor="let dept of DepartmentData" [value]="dept.id">
+                                        {{ dept.departmentName }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-validation-message [control]="frmUser.controls.departmentId" [message]="'Department'"
+                                    [formSubmitted]="isFormSubmitted">
+                                </mat-validation-message>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Job Role</mat-label>
+                                <input type="text" matInput formControlName="jobRole" textlower>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Work Area</mat-label>
+                                <input type="text" matInput formControlName="workArea" textlower>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+                            <mat-form-field class="full-width">
+                                <mat-label>Reporting Manager</mat-label>
+                                <input type="text" matInput formControlName="reportingManager" textlower>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-3 mb-3">
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Working Days</mat-label>
+                                <mat-select formControlName="workingDays">
+                                    <mat-option *ngFor="let day of workingDays" [value]="day">
+                                        {{ day }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="frmUser.get('workingDays').invalid">
+                                    Working Days is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        
+
+                        <div class="col-md-12">
+                            &nbsp;
+                        </div>
+
+                        <!-- Other Fields (Role, AD ID, Group ID, etc.) -->
+                        <!-- Add remaining fields as per your original code -->
+
+                    </div>
+
+                    <!-- Submit and Cancel Buttons -->
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" mat-flat-button class="app-button mr-1 back-Green">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

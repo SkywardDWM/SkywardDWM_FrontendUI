@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+      <div class="border p-3 rounded task-list-container">
+        <!-- Header Section -->
+        <div class="row align-items-center mb-3">
+          <div class="col-lg-7 col-md-9 d-flex align-items-start left-side-header">
+            <h4 class="mb-0">Task List</h4>
+          </div>
+          <div class="col-lg-5 col-md-3 d-flex justify-content-between align-items-center right-side-header">
+            <div class="frequency-section">
+              <p class="mb-0"><strong>Frequency:</strong> {{ taskData.items[0]?.frequency || 'N/A' }}</p>
+            </div>
+            <div class="activity-section">
+              <p class="mb-0"><strong>Activity Name:</strong> {{ taskData.items[0]?.activityName || 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Data Table Section -->
+        <div class="row">
+          <div class="col-12">
+            <ngx-datatable
+              class="material"
+              [rows]="taskData.items"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [limit]="pageSize"
+              [loadingIndicator]="loading"
+              [scrollbarH]="false"
+              [rowClass]="isActiveRow"
+              [messages]="{ emptyMessage: 'No Data to Display', totalMessage: 'Total' }"
+            >
+              <!-- Date & Time Column -->
+              <ngx-datatable-column name="Date & Time" [flexGrow]="1">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.createdDate | date: 'dd-MM-yyyy hh:mm:ss a' }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Status" prop="status"></ngx-datatable-column>
+              <ngx-datatable-column name="Value" prop="value"></ngx-datatable-column>
+              <ngx-datatable-column name="Unit of Measure" prop="unitOfMeasure"></ngx-datatable-column>
+              <ngx-datatable-column name="Comment" prop="comment"></ngx-datatable-column>
+              <ngx-datatable-column name="Issue Type" prop="issueType"></ngx-datatable-column>
+              <ngx-datatable-column name="Issue" prop="issue"></ngx-datatable-column>
+              <!-- Attachments Column -->
+              <ngx-datatable-column name="Attachment" prop="attachments">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div *ngIf="row.attachments" class="attachment-container">
+                    <a (click)="downloadAttachment(row.attachments, row.id)" class="attachment-link"
+                       title="{{ row.attachments.fileName }}">
+                      <i [class]="getFileIcon(row.attachments.fileName)" class="file-icon"></i>
+                      <!-- {{ row.attachments.fileName }} -->
+                    </a>
+                  </div>
+                  <div *ngIf="!row.attachments">
+                    No Attachment
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <mat-paginator
+                        [pageSize]="pageSize"
+                        [pageIndex]="pageIndex - 1"
+                        [length]="totalItems"
+                        (page)="onPageChange($event)">
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

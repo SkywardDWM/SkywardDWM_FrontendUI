@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+        <div class="border p30 rounded">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-sm-9 col-xs-10 d-flex align-items-end leftSideHeader">
+                    <h4 class="mb20 float-left">Task List</h4>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-xs-2 d-flex justify-content-end rightSideHeader mb10">
+                    <activity-search-panel class="custom-search-field"
+                    (searchChanged)="updateSearch($event)"></activity-search-panel>
+                    <a *ngIf="IsAddPemission" mat-flat-button class="app-button btn" [routerLink]="['../','add']">
+                        <span>Add New</span>
+                        <i class="icon-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- <role-search-panel (searchChanged)="updateSearch($event)"></role-search-panel> -->
+                    <ngx-datatable class="material" [rows]="filteredActivityData" [columnMode]="'force'" [headerHeight]="50"
+                        [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [loadingIndicator]="loading"
+                        [scrollbarH]="true" [rowClass]="isActiveRow"
+                        [messages]="{emptyMessage:'No Data to Display',totalMessage:'Total'}">
+                        <!-- [scrollbarH]="true" -->
+                        <ngx-datatable-column name="Code" prop="code"></ngx-datatable-column>
+                        <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+                        <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
+                        <ngx-datatable-column name="Priority" prop="priority"></ngx-datatable-column>
+                        <!-- <ngx-datatable-column name="FrequencyId" prop="frequencyId"></ngx-datatable-column>
+                        <ngx-datatable-column name="NatureOfWorkId" prop="natureOfWorkId"></ngx-datatable-column>
+                        <ngx-datatable-column name="UOMId" prop="uomId"></ngx-datatable-column>  
+                        <ngx-datatable-column name="PlantId" prop="plantId"></ngx-datatable-column>
+                        <ngx-datatable-column name="DepartmentId" prop="departmentId"></ngx-datatable-column>
+                        <ngx-datatable-column name="TaskCreatedOn" prop="taskCreatedOn"></ngx-datatable-column>
+                        <ngx-datatable-column name="status" prop="status"></ngx-datatable-column>
+                        <ngx-datatable-column name="Value" prop="value"></ngx-datatable-column>
+                        <ngx-datatable-column name="Comment" prop="comment"></ngx-datatable-column>
+                        <ngx-datatable-column name="IssueType" prop="issueType"></ngx-datatable-column>
+                        <ngx-datatable-column name="Issue" prop="issue"></ngx-datatable-column>
+                        <ngx-datatable-column name="JobRoleId" prop="jobRoleId"></ngx-datatable-column> -->
+                        <!-- <ngx-datatable-column name="Actions"> -->
+                        <ngx-datatable-column name="Actions" [sortable]="false"
+                            *ngIf="IsEditPermission || IsDeletePermission">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <a *ngIf="IsEditPermission" class="button-padding icon-green"
+                                    [routerLink]="['..','edit',row.id]">
+                                    <mat-icon>edit</mat-icon>
+                                </a>
+                                <button *ngIf="IsDeletePermission" (click)="removeTask(row.id)" type="button"
+                                    style="border: none; background-color: white; color: red;">
+                                    <mat-icon>close</mat-icon>
+                                    <!-- <i class="fa fa-close"></i>  -->
+                                </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                    <mat-paginator [pageSize]="pageSize" [pageIndex]="pageIndex - 1" [length]="totalItems"
+                        (page)="onPageChange($event)">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+.full-width {
+  width: 100%;
+}
+
+.card-header {
+  background-color: #307fe2;
+  border-bottom: 1px solid #307fe2;
+  padding: 0.75rem 1.25rem;
+  color: white;
+}
+
+.back-Green {
+  background-color: #307fe2;
+  color: white !important;
+  /* Text color */
+}
+
+.icon-green {
+  color: #307fe2;
+  /* Set the color for remove_circle_outline */
+}
+
+.radio-item {
+  display: block;
+  margin-bottom: 10px;
+  /* Optional: adds space between each radio button */
+}

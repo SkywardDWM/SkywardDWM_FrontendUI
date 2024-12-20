@@ -1,0 +1,12 @@
+<div>
+    <mat-toolbar  class="app-header  custom-toolbar" *ngIf="showHeader">
+        <mat-toolbar-row>
+            <div class="logo-container">
+                <a mat-button routerLinkActive="active" [routerLink]="['/secure/dashboard']">
+                    <img [src]="imagePath" class="img-logo" alt="Company Logo" />
+                </a>
+            </div>
+            <span class="menu-spacer"></span>           
+        </mat-toolbar-row>
+    </mat-toolbar>
+</div>

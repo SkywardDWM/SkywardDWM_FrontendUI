@@ -1,0 +1,160 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+        <div class="border p30 rounded">
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-7 col-sm-9 col-xs-10 d-flex align-items-end">
+                    <h4 class="mb-0"><i class="icon-edit"></i> Add/Edit Holiday</h4>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-xs-2 d-flex justify-content-end">
+                    <a *ngIf="IsViewPermission" mat-flat-button color="primary" class="app-button back-Green"
+                        (click)="cancel()">
+                        View List
+                    </a>
+                </div>
+            </div>
+            <form [formGroup]="frmHoliday" (submit)="save()" #form="ngForm" novalidate class="app-form">
+                <!-- Basic Details Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Basic Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Code -->
+                            <!-- <div class="col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Code</mat-label>
+                                    <input matInput formControlName="code" placeholder="Enter holiday code">
+                                </mat-form-field>
+                            </div> -->
+                            <!-- Calendar Name -->
+                            <div class="col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Calendar Name</mat-label>
+                                    <input matInput formControlName="calendarName" placeholder="Enter calendar name">
+                                    <mat-error *ngIf="frmHoliday.get('calendarName').invalid ">
+                                        Calendar Name is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- Start Date -->
+                            <div class="col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Start Date</mat-label>
+                                    <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+                                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #startDatePicker></mat-datepicker>
+                                    <mat-error *ngIf="frmHoliday.get('startDate').invalid ">
+                                        StartDate is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- End Date -->
+                            <div class="col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>End Date</mat-label>
+                                    <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #endDatePicker></mat-datepicker>
+                                    <mat-error *ngIf="frmHoliday.get('endDate').invalid ">
+                                        EndDate is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- Plant Dropdown -->
+                            <div class="col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Plant</mat-label>
+                                    <mat-select formControlName="plantId" multiple>
+                                        <mat-option *ngFor="let plant of plantsList" [value]="plant.id">
+                                            {{ plant.plantName }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmHoliday.get('plantId').invalid ">
+                                        Plant is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- Type -->
+                            <div class="col-md-3 mb-1">
+                                <label class="form-label mb-0">Type</label>
+                                <mat-radio-group formControlName="type" class="d-flex align-items-center">
+                                    <mat-radio-button [value]="1" class="rad-btn">Custom</mat-radio-button>
+                                    <mat-radio-button [value]="2" class="rad-btn">Holiday</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Holiday Detail Section -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0">Holiday Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div formArrayName="HolidayDetails">
+                            <div *ngFor="let holiday of HolidayDetails.controls; let i = index" [formGroupName]="i" class="row mt-3">
+                                <!-- Holiday Name -->
+                                <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-3">
+                                    <mat-form-field appearance="fill" class="full-width">
+                                        <mat-label>Holiday Name</mat-label>
+                                        <input matInput formControlName="holidayName" placeholder="Enter holiday name" />
+                                        <!-- Validation message -->
+                                        <mat-validation-message [control]="holiday.get('holidayName')"
+                                                                [message]="'Holiday Name'"
+                                                                [formSubmitted]="isFormSubmitted">
+                                        </mat-validation-message>
+                                    </mat-form-field>
+                                </div>
+                
+                                <!-- Holiday Date -->
+                                <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-3">
+                                    <mat-form-field appearance="fill" class="full-width">
+                                        <mat-label>Holiday Date</mat-label>
+                                        <input matInput [matDatepicker]="holidayDatePicker" formControlName="holidayDate" />
+                                        <mat-datepicker-toggle matSuffix [for]="holidayDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #holidayDatePicker></mat-datepicker>
+                                        <!-- Validation message -->
+                                        <mat-validation-message [control]="holiday.get('holidayDate')"
+                                                                [message]="'Holiday Date'"
+                                                                [formSubmitted]="isFormSubmitted">
+                                        </mat-validation-message>
+                                    </mat-form-field>
+                                </div>
+                
+                                <!-- Remark -->
+                                <div class="col-12 col-sm-12 col-md-4 col-lg-3 mb-3">
+                                    <mat-form-field appearance="fill" class="full-width">
+                                        <mat-label>Remarks</mat-label>
+                                        <input matInput formControlName="remark" placeholder="Enter remark" />
+                                    </mat-form-field>
+                                </div>
+                
+                                <!-- Delete Button -->
+                                <div class="col-12 col-sm-12 col-md-2 col-lg-2 mb-3 p-1 d-flex align-items-center">
+                                    <button type="button" mat-icon-button class="icon-red" (click)="removeHolidayDetail(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                
+                                <!-- Add Button (Visible only for the last item) -->
+                                <div class="col-12 col-sm-12 col-md-2 col-lg-2 mb-3 p-1 d-flex align-items-center">
+                                    <button type="button" mat-icon-button class="icon-green" *ngIf="i === HolidayDetails.length - 1"
+                                            (click)="addHolidayDetails()">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" mat-flat-button class="app-button mr-1 back-Green">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

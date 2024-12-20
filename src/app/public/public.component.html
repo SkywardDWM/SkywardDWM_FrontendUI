@@ -1,0 +1,16 @@
+<public-header-bar *ngIf="showHeaderBar"></public-header-bar>
+
+<!-- <router-outlet></router-outlet> -->
+<mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav position="end">
+        <mat-nav-list>
+          
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+        <div class="app-container container-fluid">
+            <router-outlet class="app-router-outlet"></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- <footer-bar></footer-bar> -->

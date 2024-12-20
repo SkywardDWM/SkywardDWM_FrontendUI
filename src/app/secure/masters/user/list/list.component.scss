@@ -1,0 +1,21 @@
+::ng-deep .ngx-datatable .datatable-header-cell {
+    background-color:  rgb(48, 127, 226) !important;
+    color: white !important ;              /* Text color */
+  }
+
+  .icon-green {
+    color: #307fe2;  /* Set the color for remove_circle_outline */
+  }
+
+  .btn{
+    background-color:  #307fe2;
+    color: white !important ;              /* Text color */
+  }
+
+  ::ng-deep .ngx-datatable.material .datatable-body .progress-linear .container {
+    background-color: #81b4db;
+  }
+  
+  ::ng-deep .ngx-datatable.material .datatable-body .progress-linear .container .bar {
+    background-color: #307fe2;
+  }

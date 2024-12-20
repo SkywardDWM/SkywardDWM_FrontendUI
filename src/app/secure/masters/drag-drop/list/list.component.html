@@ -1,0 +1,156 @@
+<div class="row align-items-center">
+  <div class="col-12 col-md-8 d-flex align-items-end 0">
+    <!-- <h4 class="mb-0">Production Order List</h4> -->
+  </div>
+  <div class="col-12 col-md-4 d-flex justify-content-end">
+    <kanban-search-panel class="custom-search-field" (searchChanged)="updateSearch($event)"></kanban-search-panel>
+  </div>
+</div>
+
+
+<div class="board" cdkDropListGroup>
+  <div class="column" *ngFor="let section of filteredActivityTaskList">
+    <h5>
+      {{ section.title }}
+    </h5>
+    <div cdkDropList id="{{ section.title }}" class="task-container" [cdkDropListData]="section.tasks"
+      (cdkDropListDropped)="onDrop($event)" [cdkDropListConnectedTo]="['Open', 'In Progress', 'Completed', 'Issue']">
+
+      <!-- Loop through tasks -->
+      <!-- <div class="task" *ngFor="let task of section.tasks" cdkDrag #taskElement
+        [ngStyle]="{'min-height': selectedTask === task && (section.title === 'Completed' || section.title === 'Issue' ) ? '325px' : '90px'}"> -->
+      
+        <div class="task" *ngFor="let task of section.tasks" cdkDrag #taskElement
+        [ngStyle]="{'min-height': (selectedTask === task && (section.title === 'Completed'))  ? '325px' :
+                                   (selectedTask === task && (section.title === 'Issue')) ? '375px' : '90px'}">    
+      
+      
+      
+        <div class="task-content">
+          <div class="task-header">
+            {{ task.title }}
+          </div>
+          <div class="progress-section">
+            <mat-progress-bar mode="determinate" [value]="task.progress"></mat-progress-bar>
+          </div>
+          <div class="row mt-2 mb-2">
+            <div class="status-indicators col-6 mt-2 ps-4">
+              <div *ngFor="let dot of task.indicators" class="dot"
+                [ngStyle]="{'background-color': dot ? '#06F51F' : 'red'}">
+              </div>
+            </div>
+            <div class="task-buttons col-5 pe-4">
+              <div class="indicator-circle">
+                {{task.PeriodIndicator}}
+              </div>
+              <div class="indicator-square" [ngStyle]="{'background-color': getCriticalBackgroundColor(task.Critical)}">
+                {{task.Critical}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Complete Inline Dialog Box -->
+        <div *ngIf="selectedTask === task && section.title === 'Completed'" class="dialog-box">
+          <form [formGroup]="taskCompleteForm" (ngSubmit)="submitCompleteForm(selectedTask)">
+            <div class="field">
+              <label class="d-flex">Comment <span style="color: red;">*</span></label>
+              <textarea matInput formControlName="comments" rows="3" required>
+                  </textarea>
+              <!-- <input matInput formControlName="comments" required/> -->
+            </div>
+
+            <div class="field">
+              <label class="d-flex">Value <span style="color: red;">*</span></label>
+              <input matInput type="number" formControlName="values" required />
+              <span>Numbers</span>
+            </div>
+
+            <div class="field">
+              <label>Task ID</label>
+              <span>{{ selectedTask.taskCode }}</span>
+            </div>
+
+            <div class="field">
+              <label>Instructions</label>
+              <span>{{ selectedTask.Instruction }}</span>
+            </div>
+
+            <div class="actions">
+              <input type="button" mat-raised-button class="more-button"
+              [routerLink]="['/secure/masters/task/list',selectedTask.ActivityId]" value="More"/>
+              <div class="attachments">
+                <label>Attachment</label>
+                <mat-icon class="attachment-icon" (click)="triggerFileInput()">attachment</mat-icon>
+                <input type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" #fileInput (change)="onFileChange($event)"
+                  style="display: none;" />
+              </div>
+              <button mat-icon-button color="primary" type="submit">
+                <mat-icon>check_circle</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" type="button" (click)="cancelCompleteDialog()">
+                <mat-icon>cancel</mat-icon>
+              </button>
+
+            </div>
+          </form>
+        </div>
+
+        <!--Issue Inline Dialog Box -->
+        <div *ngIf="selectedTask === task && section.title === 'Issue'" class="dialog-box">
+          <form [formGroup]="taskIssueForm" (ngSubmit)="submitIssueForm(selectedTask)">
+            <div class="field">
+              <label class="d-flex">Comment <span style="color: red;">*</span></label>
+              <textarea matInput formControlName="comments" rows="3" required>
+                    </textarea>
+              <!-- <input matInput formControlName="comments" required/> -->
+            </div>
+
+            <div class="field">
+              <label class="d-flex">Value <span style="color: red;">*</span></label>
+              <input matInput type="number" formControlName="values" required />
+              <span>Numbers</span>
+            </div>
+
+            <div class="field">
+              <label>Issue Type <span style="color: red;">*</span></label>
+              <input matInput style="width: 75px !important;" formControlName="issueType" required />
+              <label class="ms-1 d-flex">Issue <span style="color: red;">*</span></label>
+              <input matInput style="width: 75px !important;" formControlName="issue" required />
+            </div>
+
+            <div class="field">
+              <label>Task ID</label>
+              <span>{{ selectedTask.taskCode }}</span>
+            </div>
+
+            <div class="field">
+              <label>Instructions</label>
+              <span>{{ selectedTask.Instruction }}</span>
+            </div>
+
+            <div class="actions">
+              <input type="button" mat-raised-button class="more-button"
+              [routerLink]="['/secure/masters/task/list',selectedTask.ActivityId]" value="More"/>
+              <div class="attachments ms-2">
+                <label>Attachment</label>
+                <mat-icon class="attachment-icon" (click)="triggerIssueFileInput()">attachment</mat-icon>
+                <input type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" #IssuefileInput
+                  (change)="onIssueFileChange($event)" style="display: none;" />
+              </div>
+              <button mat-icon-button color="primary" type="submit">
+                <mat-icon>check_circle</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" type="button" (click)="cancelIssueDialog()">
+                <mat-icon>cancel</mat-icon>
+              </button>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

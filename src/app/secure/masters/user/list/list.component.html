@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+        <div class="border p30 rounded">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-sm-9 col-10 d-flex align-items-end leftSideHeader">
+                    <h4 class="mb20 float-left">User List</h4>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-2 d-flex justify-content-end rightSideHeader mb10">
+                        <user-search-panel class="custom-search-field"
+                        (searchChanged)="updateSearch($event)"></user-search-panel>
+                        <a mat-flat-button  class="app-button btn"
+                        *ngIf="IsAddPemission"  [routerLink]="['../','add']">
+                            <span>Add New</span>
+                            <i class="icon-plus"></i>
+                        </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- <user-search-panel (searchChanged)="updateSearch($event)"></user-search-panel> -->
+                    <ngx-datatable class="material"
+                        [rows]="filtereduserData"
+                        [columnMode]="'force'"
+                        [headerHeight]="50"
+                        [footerHeight]="50"
+                        [rowHeight]="'auto'"
+                        [limit]="pageSize"
+                        [loadingIndicator]="loading"
+                        [scrollbarH]="true"
+                        [rowClass]="isActiveRow"
+                        [messages]="{emptyMessage:'No Data to Display', totalMessage:'Total'}">
+                        <ngx-datatable-column name="User Name" prop="userName"></ngx-datatable-column>
+                        <ngx-datatable-column name="Email" prop="email"></ngx-datatable-column>
+                        <!-- <ngx-datatable-column name="AD Id" prop="adId"></ngx-datatable-column> -->
+                        <ngx-datatable-column name="AD Id" prop="adId">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <!-- Check if description is empty, if so, display "-" -->
+                                <span>{{ row.adId ? row.adId : '-' }}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Registered On" prop="createdDate">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                <span>{{value | date: 'MM/dd/yyyy hh:mm a'}}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Actions"  *ngIf="IsEditPermission || IsDeletePermission" >
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <a  *ngIf="IsEditPermission " [routerLink]="['../','edit',row.id]"
+                                    title="Edit" class="button-padding icon-green">
+                                    <mat-icon>edit</mat-icon>
+                                </a>
+                                <button *ngIf="IsDeletePermission" (click)="toggleActivate(row.id)" type="button" style="border: none; background-color: white; color: red;">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <!-- <ng-container  *ngIf="IsDeletePermission" class="ml-10">
+                                    <a href="#" *ngIf="row.isActive" (click)="toggleActivate(row.id)"
+                                        title="Make Inactive" class="button-padding">
+                                        <mat-icon>delete</mat-icon>
+                                    </a>
+                                    <a href="#" *ngIf="!row.isActive" (click)="toggleActivate(row.id)"
+                                        title="Make Active" class="button-padding">
+                                        <mat-icon>delete</mat-icon>
+                                    </a>
+                                </ng-container> -->
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+
+                    <!-- Pagination controls -->
+                    <mat-paginator
+                        [pageSize]="pageSize"
+                        [pageIndex]="pageIndex - 1"
+                        [length]="totalItems"
+                        (page)="onPageChange($event)">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

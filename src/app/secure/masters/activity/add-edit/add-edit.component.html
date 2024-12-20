@@ -1,0 +1,207 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+        <div class="border p30 rounded">
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-7 col-sm-9 col-xs-10 d-flex align-items-end">
+                    <h4 class="mb-0"><i class="icon-edit"></i> Add/Edit Task</h4>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-xs-2 d-flex justify-content-end">
+                    <a *ngIf="IsViewPermission" mat-flat-button class="app-button back-Green" (click)="cancel()">
+                        View List
+                    </a>
+                </div>
+            </div>
+            <form [formGroup]="frmActivity" (ngSubmit)="save()" #form="ngForm" novalidate class="app-form">
+                <!-- Role Details Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Task Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Name -->
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label> Name</mat-label>
+                                    <input matInput formControlName="name">
+                                    <mat-error *ngIf="frmActivity.get('name').invalid">
+                                        Name is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Description</mat-label>
+                                    <input matInput formControlName="description">
+                                    <mat-error *ngIf="frmActivity.get('description').invalid">
+                                        Description is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Priority</mat-label>
+                                    <mat-select formControlName="priority">
+                                        <mat-option *ngFor="let priority of priorities" [value]="priority">
+                                            {{ priority }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmActivity.get('priority').invalid">
+                                        Priority is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            
+                            <!-- HOD User ID -->
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Frequency</mat-label>
+                                    <mat-select formControlName="frequencyId">
+                                        <mat-option *ngFor="let Frequency of frequencyList" [value]="Frequency.id">
+                                            {{ Frequency.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmActivity.get('frequencyId').invalid">
+                                        Frequency is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Nature Of Work</mat-label>
+                                    <mat-select formControlName="natureOfWorkId">
+                                        <mat-option *ngFor="let natureOfWork of natureOfWorkList"
+                                            [value]="natureOfWork.id">
+                                            {{ natureOfWork.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmActivity.get('natureOfWorkId').invalid">
+                                        Nature Of Work is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Unit Of Measure</mat-label>
+                                    <mat-select formControlName="uomId">
+                                        <mat-option *ngFor="let UOM of UOMList" [value]="UOM.id">
+                                            {{ UOM.unitName }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmActivity.get('uomId').invalid">
+                                        Unit Of Measure is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Plant -->
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Plant</mat-label>
+                                    <mat-select formControlName="plantId">
+                                        <mat-option *ngFor="let plant of plantsList" [value]="plant.id">
+                                            {{ plant.plantName }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmActivity.get('plantId').invalid">
+                                        Plant is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Department</mat-label>
+                                    <mat-select formControlName="departmentId">
+                                        <mat-option *ngFor="let department of departmentList" [value]="department.id">
+                                            {{ department.departmentName }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmActivity.get('departmentId').invalid">
+                                        Department is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- Task Created Date -->
+                            <div class="col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Start Date</mat-label>
+                                    <input matInput [matDatepicker]="startDatePicker" formControlName="taskCreatedOn">
+                                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #startDatePicker></mat-datepicker>
+                                    <mat-error *ngIf="frmActivity.get('taskCreatedOn').invalid">
+                                        StartDate is required
+                                    </mat-error>
+                                </mat-form-field>                       
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                <mat-form-field appearance="fill" class="full-width">
+                                    <mat-label>Job Role</mat-label>
+                                    <mat-select formControlName="jobRoleId">
+                                        <mat-option *ngFor="let jobRole of jobRoleList" [value]="jobRole.id">
+                                            {{ jobRole.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="frmActivity.get('jobRoleId').invalid">
+
+                                        JoBRole is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- Attachments Section -->
+                            <div></div>
+                            <div></div>
+                            <div class="form-group attachments-section col-md-3 mb-3">
+                                <label>Attachments</label>
+                                <input type="file" multiple (change)="onFileSelected($event)"
+                                    class="form-control-file attachment-input"
+                                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+                                    <!-- <div class="attachments-section">
+                                        <label for="fileUpload" class="custom-upload-label">Upload Files</label>
+                                        <input id="fileUpload" type="file" multiple (change)="onFileSelected($event)"
+                                               class="attachment-input"
+                                               accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                      </div> -->
+                                      
+                                <div *ngIf="attachments.length > 0" class="attachment-list mt-3">
+                                    <div *ngFor="let attachment of attachments; let i = index"
+                                        class="attachment-item d-flex align-items-center justify-content-between">
+                                        <div class="attachment-details d-flex align-items-center">
+                                            <mat-icon class="attachment-icon">attach_file</mat-icon>
+                                            <span class="attachment-name">{{ attachment.fileName }}</span>
+                                        </div>
+                                        <!-- Download and Remove Icons next to each other -->
+                                        <div class="icons d-flex align-items-center">
+                                            <!-- Download Icon -->
+                                            <button type="button"
+                                                (click)="downloadAttachment(attachment, activityId)"
+                                                class="btn btn-sm" title="{{ attachment.fileName }}">
+                                                <mat-icon (click)="getFileIcon(attachment.fileName)">download</mat-icon>
+                                            </button>
+
+                                            <!-- Remove Icon -->
+                                            <button type="button" (click)="removeAttachment(i)"
+                                                class="remove-btn btn btn-sm">
+                                                <span class="remove-icon"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" mat-flat-button class="app-button mr-1 back-Green">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

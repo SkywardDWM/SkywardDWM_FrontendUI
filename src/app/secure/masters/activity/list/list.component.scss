@@ -1,0 +1,26 @@
+/* Ensuring the header cell color is applied with higher specificity */
+::ng-deep .ngx-datatable .datatable-header-cell {
+  background-color: rgb(48, 127, 226) !important;
+  color: white !important; /* Text color */
+}
+
+/* Ensure the green color for remove_circle_outline */
+.icon-green {
+  color: #307fe2 !important; /* Set the color for remove_circle_outline */
+}
+
+/* Update the button background and text color */
+.btn {
+  background-color: #307fe2 !important;
+  color: white !important; /* Text color */
+}
+
+/* Styling the progress bar container */
+::ng-deep .ngx-datatable.material .datatable-body .progress-linear .container {
+  background-color: #81b4db !important;
+}
+
+/* Update the color of the progress bar */
+::ng-deep .ngx-datatable.material .datatable-body .progress-linear .container .bar {
+  background-color: #307fe2 !important;
+}

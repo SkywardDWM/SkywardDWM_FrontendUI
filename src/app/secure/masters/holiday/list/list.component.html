@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-xl-11 col-lg-12">
+        <div class="border p30 rounded">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-sm-9 col-xs-10 d-flex align-items-end leftSideHeader">
+                    <h4 class="mb20 float-left">Holiday List</h4>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-xs-2 d-flex justify-content-end rightSideHeader mb10">
+                    <holiday-search-panel class="custom-search-field"
+                    (searchChanged)="updateSearch($event)"></holiday-search-panel>
+                    <a *ngIf="IsAddPemission" mat-flat-button class="app-button btn" [routerLink]="['../','add']">
+                        <!--  -->
+                        <span>Add New</span>
+                        <i class="icon-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- <role-search-panel (searchChanged)="updateSearch($event)"></role-search-panel> -->
+                    <ngx-datatable class="material" [rows]="filteredHolidayData" [columnMode]="'force'" [headerHeight]="50"
+                        [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [loadingIndicator]="loading"
+                        [scrollbarH]="true" [rowClass]="isActiveRow"
+                        [messages]="{emptyMessage:'No Data to Display',totalMessage:'Total'}">
+                        <ngx-datatable-column name="Code" prop="code"></ngx-datatable-column>
+                        <ngx-datatable-column name="Calendar Name" prop="calendarName"></ngx-datatable-column>
+                        <ngx-datatable-column name="Start Date" prop="startDate">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <span>{{ row.startDate | date: 'dd-MM-yyyy' }}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        
+                        <ngx-datatable-column name="End Date" prop="endDate">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <span>{{ row.endDate | date: 'dd-MM-yyyy' }}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        
+                        <ngx-datatable-column name="Type" [sortable]="false">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <span>{{ (row.type != "-") ? (row.type == 1 ? 'Custom' : 'Holiday') : '-' }}</span>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        
+                        <ngx-datatable-column *ngIf="IsEditPermission || IsDeletePermission" name="Actions"
+                            [sortable]="false">
+                            <!--  -->
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <a class="icon-green" *ngIf="IsEditPermission" [routerLink]="['..','edit',row.id]">
+                                    <!--   -->
+                                    <mat-icon>edit</mat-icon>
+                                </a>
+                                <button (click)="removeHoliday(row.id)" type="button" *ngIf="IsDeletePermission"
+                                    style="border: none; background-color: white; color: red;">
+                                    <!--   -->
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
