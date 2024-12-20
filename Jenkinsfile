@@ -1,9 +1,9 @@
-
 pipeline {
     agent any
 
     environment {
         NODE_VERSION = '16.x' // Replace with your required Node.js version
+        DEPLOY_PATH = 'C:\\inetpub\\wwwroot\\DWM_Frontend' // Deployment directory for the frontend
     }
 
     stages {
@@ -18,17 +18,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                // Use --legacy-peer-deps if dependency conflicts persist
                 bat 'npm install --force'
             }
         }
 
-        // test stage skkiped and it worked 
-
         stage('Build Application') {
             steps {
                 echo 'Building application...'
-                // Ensure `npm run build` is configured to build the project
                 bat 'npm run build'
             }
         }
@@ -36,13 +32,12 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 echo 'Deploying application...'
-                // Example: Copy build files to the deployment directory
-                bat '''
-                IF NOT EXIST "C:\\path\\to\\deployment\\directory" (
-                    mkdir "C:\\path\\to\\deployment\\directory"
+                bat """
+                IF NOT EXIST \"${DEPLOY_PATH}\" (
+                    mkdir \"${DEPLOY_PATH}\"
                 )
-                xcopy /s /e /y dist\\* C:\\path\\to\\deployment\\directory
-                '''
+                xcopy /s /e /y dist\\* \"${DEPLOY_PATH}\"
+                """
                 echo 'Application deployed successfully.'
             }
         }
