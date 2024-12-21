@@ -6,7 +6,7 @@ export const environment = {
   
 
   //API
-   production: true,
+   production: false,
    serverPath: 'https://localhost:8091/',  //local
 
   // production: true,
