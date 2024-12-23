@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NODE_VERSION = '16.x' // Replace with your required Node.js version
-        DEPLOY_PATH = 'C:\\inetpub\\wwwroot\\DWM_Frontend' // Deployment directory for the frontend
+        DEPLOY_PATH = 'C:\\inetpub\\wwwroot\\DWM_Frontend' // Deployment directory for the frontend.make sure you rename it for new project 
     }
 
     stages {
